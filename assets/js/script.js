@@ -45,8 +45,7 @@ function runGame(gameType) {
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "division") {
-        alert(`${gameType} is not yet implemented.`);
-        throw `${gameType} is not yet implemented. Aborting.`;
+        displayDivisionQuestion(num1,num2);
     } else {
         alert(`Unknown game type: ${gameType}.`);
         throw `Unknown game type: ${gameType}. Aborting.`;
@@ -88,7 +87,8 @@ function calculateCorrectAnswer() {
         return [operand1 - operand2, "subtract"];
     } else if (operator === 'x') {
         return [operand1 * operand2, "multiply"];
-        /*} else if () {*/
+    } else if (operator === '/') {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`unimplemented game type ${operator}`);
         throw `unimplemented game type ${operator}`;
@@ -116,9 +116,9 @@ function incrementWrongAnswer() {
 }
 
 function displayAdditionQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
-    document.getElementById('operator').textContent = '+';
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = '+';
 
 }
 
@@ -127,17 +127,23 @@ function displayAdditionQuestion(operand1, operand2) {
  * but it seemed to work fine with negatives
  */
 function displaySubtractQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1 >= operand2 ? operand1 : operand2;
-    document.getElementById('operand2').textContent = operand1 >= operand2 ? operand2 : operand1;
-    document.getElementById('operator').textContent = '-';
+    document.getElementById('operand1').innerText = operand1 >= operand2 ? operand1 : operand2;
+    document.getElementById('operand2').innerText = operand1 >= operand2 ? operand2 : operand1;
+    document.getElementById('operator').innerText = '-';
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
-    document.getElementById('operator').textContent = 'x';
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = 'x';
 }
 
-function displayDivisionQuestion() {
-
+function displayDivisionQuestion(operand1, operand2) {
+    let num = operand1 > operand2 ? operand1*15 : operand2*15;
+    operand2 = operand1 > operand2 ? operand2 : operand1;
+    let diff = num % operand2;
+    operand1 = num-diff; 
+    document.getElementById('operand1').innerText = operand1;
+    document.getElementById('operand2').innerText = operand2;
+    document.getElementById('operator').innerText = '/';
 }
